@@ -1,0 +1,51 @@
+<div class="card">
+    <h5 class="card-header">asyn Validator with other arguments</h5>
+    <div class="card-body">
+<div class="card-title">
+    common asyn validator with only a control(AbstractControl) param. such as , validate the email had been registed.
+    but some scenes validate an order args change need dependency Its own properties in server side.
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of persons">
+        <th scope="row">{{p.id}}</th>
+        <td>{{p.name}}</td>
+        <td><button class="btn btn-secondary btn-sm" (click)="edit($event,p)">edit</button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div id="myModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Change Name</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="editForm">
+                <label for="nameControl" class="form-label">Name</label>
+                <input type="email" class="form-control" id="nameControl" formControlName="personName" >
+                <div *ngIf="(editForm.get('personName')?.dirty||editForm.get('personName')?.touched)&&(!editForm.valid)" class="alert alert-danger mt-3">
+                    <ng-container *ngIf="editForm.get('personName')?.errors?.required">name is empty</ng-container>
+                    <ng-container *ngIf="editForm.get('personName')?.errors?.serverLimit">cannot match serverLimit</ng-container>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
